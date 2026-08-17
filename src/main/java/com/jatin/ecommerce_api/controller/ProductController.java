@@ -32,6 +32,7 @@ public class ProductController {
         return productRepository.findByNameContainingIgnoreCase(name);
     }
 
+
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
         return productRepository.save(product);
