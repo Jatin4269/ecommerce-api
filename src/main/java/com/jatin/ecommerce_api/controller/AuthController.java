@@ -27,6 +27,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Email already registered");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(com.jatin.ecommerce_api.entity.Role.USER); // explicit, don't rely on entity default
         User saved = userRepository.save(user);
         saved.setPassword(null); // never echo the hash back
         return ResponseEntity.ok(saved);
@@ -41,7 +42,7 @@ public class AuthController {
             return ResponseEntity.status(401).body("Invalid email or password");
         }
 
-        String token = jwtUtil.generateToken(user.getEmail());
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
         return ResponseEntity.ok(java.util.Map.of("token", token));
     }
 }
