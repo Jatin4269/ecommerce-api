@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Niche — Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <span class="brand">SHELF STEAL</span>
+    <button class="cart-toggle" id="cartToggle" aria-label="Open cart">
+        <span class="cart-dot"></span>
+        CART <span id="cartCount">0</span>
+    </button>
+</header>
+
+<main class="room" id="room">
+
+    <div class="wall" id="wall">
+
+        <div class="deco-cross cross-a" aria-hidden="true"></div>
+        <div class="deco-dot dot-a" aria-hidden="true"></div>
+
+        <div class="niche">
+
+            <div class="tier tier-1">
+                <button class="product-slot" data-product="0" aria-label="View Froggie">
+                    <span class="badge badge-green">FROGGIE</span>
+                    <img class="thumb" src="images/froggie-1.jpeg" alt="">
+                </button>
+            </div>
+
+            <div class="tier tier-2">
+                <button class="product-slot" data-product="1" aria-label="View Pika Whistle">
+                    <span class="badge badge-yellow">PIKA</span>
+                    <img class="thumb" src="images/pika-1.jpeg" alt="">
+                </button>
+            </div>
+
+            <div class="tier tier-3">
+                <button class="product-slot" data-product="2" aria-label="View Clipper Lighter">
+                    <span class="badge badge-red">CLIPPER</span>
+                    <img class="thumb" src="images/clipper-1.jpeg" alt="">
+                </button>
+            </div>
+
+            <div class="tier tier-4">
+                <button class="product-slot" data-product="3" aria-label="View Che Guevara Band">
+                    <span class="badge badge-blue">CHE BAND</span>
+                    <img class="thumb" src="images/che-1.jpeg" alt="">
+                </button>
+            </div>
+
+        </div>
+
+        <div class="deco-cross cross-b" aria-hidden="true"></div>
+        <div class="deco-dot dot-b" aria-hidden="true"></div>
+
+    </div>
+
+    <p class="room-hint">TAP SOMETHING. COMMIT TO NOTHING. (YET)</p>
+
+</main>
+
+<div class="backdrop" id="backdrop"></div>
+
+<aside class="drawer" id="drawer" aria-hidden="true">
+    <button class="drawer-back" id="drawerBack">&larr; BACK TO SHELF</button>
+
+    <div class="poster-card">
+        <div class="poster-shape" id="posterShape" aria-hidden="true"></div>
+
+        <div class="gallery" id="gallery"></div>
+        <div class="gallery-dots" id="galleryDots"></div>
+
+        <div class="poster-eyebrow" id="drawerEyebrow">TIER 1</div>
+        <h2 class="poster-title" id="drawerTitle">FROGGIE</h2>
+        <p class="poster-price" id="drawerPrice">₹0</p>
+        <p class="poster-desc" id="drawerDesc"></p>
+
+        <ul class="poster-specs" id="drawerSpecs"></ul>
+
+        <div class="drawer-qty">
+            <span>QTY</span>
+            <div class="qty-control">
+                <button id="qtyMinus" aria-label="Decrease quantity">−</button>
+                <span id="qtyValue">1</span>
+                <button id="qtyPlus" aria-label="Increase quantity">+</button>
+            </div>
+        </div>
+
+        <button class="btn-add" id="addToCart">ADD TO CART</button>
+        <p class="drawer-added" id="drawerAdded">ADDED</p>
+    </div>
+</aside>
+
+<aside class="cart-panel" id="cartPanel" aria-hidden="true">
+    <div class="cart-head">
+        <h2>YOUR CART</h2>
+        <button class="cart-close" id="cartClose" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-empty" id="cartEmpty">EMPTY<br>Go pick something off the shelf.</div>
+    <div class="cart-footer" id="cartFooter">
+        <div class="cart-total-row"><span>TOTAL</span><span id="cartTotal">₹0</span></div>
+        <button class="btn-checkout" id="checkoutBtn">CHECKOUT</button>
+    </div>
+</aside>
+
+<script src="app.js"></script>
+</body>
+</html>html>
