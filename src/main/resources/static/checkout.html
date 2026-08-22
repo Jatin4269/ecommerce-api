@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout — Shelf Steal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .checkout-wrap{
+            max-width: 480px; margin: 0 auto; padding: 110px 24px 60px;
+        }
+        .checkout-back{
+            display:inline-block; font-family: var(--font-head); font-size: 12px;
+            margin-bottom: 24px; color: var(--ink); text-decoration: none;
+        }
+        .checkout-title{
+            font-family: var(--font-head); font-size: 26px; margin-bottom: 24px;
+        }
+        .co-card{
+            background: var(--white); border: 4px solid var(--ink); padding: 24px; margin-bottom: 20px;
+        }
+        .co-card h2{
+            font-family: var(--font-head); font-size: 14px; margin-bottom: 16px; letter-spacing: 0.03em;
+        }
+        .co-row{
+            display:flex; justify-content:space-between; font-size: 13px;
+            padding: 8px 0; border-bottom: 2px solid var(--ink);
+        }
+        .co-row:last-child{ border-bottom:none; }
+        .co-total{
+            display:flex; justify-content:space-between; align-items:baseline;
+            margin-top: 12px; padding-top: 12px; border-top: 4px solid var(--ink);
+            font-family: var(--font-head); font-size: 14px;
+        }
+        .co-total span:last-child{ font-size: 20px; color: var(--blue); }
+
+        .co-empty{
+            font-family: var(--font-head); font-size: 13px; text-align:center; padding: 30px 0;
+        }
+        .co-empty a{ color: var(--blue); }
+
+        .co-field{ margin-bottom: 14px; }
+        .co-field label{
+            display:block; font-family: var(--font-head); font-size: 10px; letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+        .co-field input{
+            width: 100%; padding: 12px; border: 3px solid var(--ink);
+            font-family: var(--font-body); font-size: 14px; background: var(--cream);
+        }
+        .co-field input:focus{ outline: 2px solid var(--blue); }
+
+        .co-btn{
+            width: 100%; padding: 16px; border: none; cursor: pointer;
+            font-family: var(--font-head); font-size: 13px; letter-spacing: 0.04em;
+            background: var(--ink); color: var(--white);
+        }
+        .co-btn:hover{ background: var(--blue); }
+        .co-btn:disabled{ opacity: 0.5; cursor: not-allowed; }
+        .co-btn.pay{ background: var(--red); }
+        .co-btn.pay:hover{ background: #94241a; }
+
+        .co-error{
+            font-family: var(--font-head); font-size: 11px; color: var(--red);
+            margin-top: 10px; display:none;
+        }
+        .co-error.show{ display:block; }
+
+        .co-status{
+            font-family: var(--font-head); font-size: 11px; color: var(--green);
+            margin-bottom: 14px; display:none;
+        }
+        .co-status.show{ display:block; }
+
+        .co-toggle{
+            font-size: 12px; margin-top: 10px; text-align:center;
+        }
+        .co-toggle button{
+            background:none; border:none; color: var(--blue); cursor:pointer;
+            font-family: var(--font-body); font-size: 12px; text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <span class="brand">SHELF STEAL</span>
+    <button class="logout-btn" id="checkoutLogoutBtn" style="display:none;">LOG OUT</button>
+</header>
+
+<main class="checkout-wrap">
+    <a class="checkout-back" href="index.html">&larr; BACK TO SHELF</a>
+    <h1 class="checkout-title">CHECKOUT</h1>
+
+    <div id="emptyState" class="co-card" style="display:none;">
+        <p class="co-empty">Your cart's empty. <a href="index.html">Go find something.</a></p>
+    </div>
+
+    <div id="checkoutFlow" style="display:none;">
+
+        <div class="co-card">
+            <h2>ORDER SUMMARY</h2>
+            <div id="summaryRows"></div>
+            <div class="co-total"><span>TOTAL</span><span id="summaryTotal">₹0</span></div>
+        </div>
+
+        <div class="co-card" id="authCard">
+            <h2 id="authHeading">LOG IN TO PAY</h2>
+            <p class="co-status" id="authStatus"></p>
+
+            <div id="loginFields">
+                <div class="co-field">
+                    <label>EMAIL</label>
+                    <input type="email" id="loginEmail" placeholder="you@example.com">
+                </div>
+                <div class="co-field">
+                    <label>PASSWORD</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••">
+                </div>
+                <button class="co-btn" id="loginBtn">LOG IN</button>
+                <p class="co-error" id="loginError">Wrong email or password. Try again.</p>
+
+                <div class="co-toggle">
+                    New here? <button id="showRegister">Create an account</button>
+                </div>
+            </div>
+
+            <div id="registerFields" style="display:none;">
+                <div class="co-field">
+                    <label>NAME</label>
+                    <input type="text" id="regName" placeholder="Your name">
+                </div>
+                <div class="co-field">
+                    <label>EMAIL</label>
+                    <input type="email" id="regEmail" placeholder="you@example.com">
+                </div>
+                <div class="co-field">
+                    <label>PASSWORD</label>
+                    <input type="password" id="regPassword" placeholder="At least 6 characters">
+                </div>
+                <button class="co-btn" id="registerBtn">CREATE ACCOUNT</button>
+                <p class="co-error" id="registerError">Something went wrong. Try a different email.</p>
+
+                <div class="co-toggle">
+                    Already have an account? <button id="showLogin">Log in</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="co-card" id="payCard" style="display:none;">
+            <h2>PAYMENT</h2>
+            <p class="co-status show" id="loggedInAs"></p>
+            <button class="co-btn pay" id="payBtn">PAY <span id="payAmount">₹0</span></button>
+            <p class="co-error" id="payError">Payment could not be verified. Nothing was charged — try again.</p>
+        </div>
+
+    </div>
+</main>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="checkout.js"></script>
+</body>
+</html>

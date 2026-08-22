@@ -90,6 +90,20 @@ const cartFooter = document.getElementById("cartFooter");
 const cartTotal = document.getElementById("cartTotal");
 const cartCount = document.getElementById("cartCount");
 const checkoutBtn = document.getElementById("checkoutBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+
+function updateLogoutVisibility(){
+    const hasToken = sessionStorage.getItem("authToken");
+    logoutBtn.style.display = hasToken ? "inline-block" : "none";
+}
+
+logoutBtn.addEventListener("click", () => {
+    sessionStorage.removeItem("authToken");
+    sessionStorage.removeItem("userEmail");
+    updateLogoutVisibility();
+});
+
+updateLogoutVisibility();
 
 function money(n){ return "₹" + n.toLocaleString("en-IN"); }
 
